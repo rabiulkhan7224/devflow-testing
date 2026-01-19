@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { NextResponse } from "next/server";
+import { google } from "@ai-sdk/google";
 
 import handleError from "@/lib/handlers/error";
 import { ValidationError } from "@/lib/http-errors";
@@ -16,7 +17,9 @@ export async function POST(req: Request) {
     if (!validatedData.success) throw new ValidationError(validatedData.error.flatten().fieldErrors);
 
     const { text } = await generateText({
-      model: openai("gpt-4-turbo"),
+     // 2. Use the google provider and a free-tier model
+      // 'gemini-1.5-flash' is free and very fast
+      model: google("gemini-1.5-flash"),
       prompt: `Generate a markdown-formatted response to the following question: "${question}".  
       
       Consider the provided context:  

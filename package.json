@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.10",
     "@ai-sdk/openai": "^2.0.47",
     "@hookform/resolvers": "^5.2.2",
     "@mdxeditor/editor": "^3.47.0",
