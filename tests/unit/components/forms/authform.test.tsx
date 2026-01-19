@@ -1,5 +1,5 @@
 import AuthForm from "@/components/forms/AuthForm";
-import { SignInSchema } from "@/lib/validations";
+import { SignInSchema, SignUpSchema } from "@/lib/validations";
 
 import { render, screen, fireEvent } from "@testing-library/react";
 
@@ -26,7 +26,27 @@ describe("AuthForm Component - TDD Approach", () => {
         })
 
         describe("sign up form", () => {
+            describe('Rendering', () => {
+                it('should display all required fields', () => {
+                    const onSubmit = jest.fn();
 
+                    render(
+                        <AuthForm
+                            formType="SIGN_UP"
+                            schema={SignUpSchema}
+                            defaultValues={{ name: '', username: '', email: '', password: '' }}
+                            onSubmit={onSubmit}
+                        />,
+                    );
+
+                    expect(screen.getByLabelText('Name')).toBeInTheDocument();
+                    expect(screen.getByLabelText('Username')).toBeInTheDocument();
+                    expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
+                    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+                    expect(screen.getByRole('button', { name: 'Sign Up' })).toBeInTheDocument();
+                    expect(screen.getByText('Already have an account?')).toBeInTheDocument();
+                });
+            });
         })
     })
 })
